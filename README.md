@@ -11,6 +11,75 @@ Web interface for the Philter PHI (Protected Health Information) filtering tool 
 - **No Storage**: All processing done in-memory, results not persisted
 - **Important Disclaimer**: Outputs PHI-reduced notes, not PHI-free notes
 
+## Quick Start with Docker (Recommended)
+
+The easiest way to run Philter Web App is using Docker:
+
+### Prerequisites
+- Docker
+- Docker Compose
+
+### Running the Application
+
+1. **Build and start the container:**
+```bash
+docker-compose up -d
+```
+
+2. **Access the application:**
+   - Web interface: http://localhost:8000
+   - API endpoint: http://localhost:8000/api/philter
+
+3. **View logs:**
+```bash
+docker-compose logs -f philter-web
+```
+
+4. **Stop the application:**
+```bash
+docker-compose down
+```
+
+### Rebuilding After Changes
+
+If you modify the code, rebuild the container:
+```bash
+docker-compose up -d --build
+```
+
+## Manual Installation (Alternative)
+
+If you prefer not to use Docker:
+
+### Prerequisites
+- Python 3.9-3.11
+- uv or pip
+
+### Installation
+
+1. Install dependencies using uv:
+```bash
+uv pip install -e .
+```
+
+Or with standard pip:
+```bash
+pip install -e .
+```
+
+2. Activate the virtual environment:
+```bash
+source .venv39/Scripts/activate  # Windows
+source .venv39/bin/activate      # Linux/Mac
+```
+
+3. Start the server:
+```bash
+python main.py
+```
+
+The application will be available at: http://localhost:8000
+
 ## Usage
 
 ### Web Interface
@@ -60,10 +129,28 @@ Settings:
 - **Output format**: Production mode (i2b2 XML with PHI tags)
 - **Config file**: `philter_config/philter_delta.json`
 
+## Deployment
+
+### Docker Deployment
+
+The application includes a multi-stage Dockerfile optimized for production:
+
+- Based on Python 3.9 slim image
+- Includes all required dependencies
+- Pre-downloads NLTK data
+- Health checks configured
+- Runs on port 8000
+
+### Environment Variables
+
+None required by default. All configuration is pre-set.
+
 ## Project Structure
 
 ```
 philter-web-app/
+├── Dockerfile              # Docker container definition
+├── docker-compose.yml      # Docker Compose configuration
 ├── main.py                 # FastAPI application
 ├── templates/
 │   ├── index.html         # Main page

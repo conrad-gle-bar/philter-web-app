@@ -1,0 +1,9 @@
+services:
+  philter-web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: philter-web-app
+    ports:
+      - "8000:8000"
+    restart: unless-stopped

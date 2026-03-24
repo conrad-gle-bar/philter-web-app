@@ -55,10 +55,8 @@ test_*.txt
 .DS_Store
 Thumbs.db
 
-# Philter files (copied from philter-ucsf)
-philter.py
-coordinate_map.py
-filters/
+# Docker
+.dockerignore
 
 # claude code sessions
 .claude
