@@ -234,14 +234,21 @@ class Philter:
         """ precompiles our regex to speed up pattern matching"""
         regex = open(filepath,"r").read().strip()
         re_compiled = None
+        # Python 3.11+ requires inline flags like (?i) at the start of the
+        # pattern.  Many filter files place (?i) after \b or other constructs.
+        # Strip all inline (?i) flags and pass re.IGNORECASE to compile().
+        flags = 0
+        if "(?i)" in regex:
+            flags = re.IGNORECASE
+            regex = regex.replace("(?i)", "")
         with warnings.catch_warnings(): #NOTE: this is not thread safe! but we want to print a more detailed warning message
             warnings.simplefilter(action="error", category=FutureWarning) # in order to print a detailed message
             try:
-                re_compiled = re.compile(regex)
+                re_compiled = re.compile(regex, flags)
             except FutureWarning as warn:
                 print("FutureWarning: {0} in file ".format(warn) + filepath)
                 warnings.simplefilter(action="ignore", category=FutureWarning)
-                re_compiled = re.compile(regex) # assign nevertheless
+                re_compiled = re.compile(regex, flags) # assign nevertheless
         return re_compiled
                
     def init_set(self, filepath):
