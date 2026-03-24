@@ -5,7 +5,10 @@ import uuid
 from pathlib import Path
 from typing import Optional
 
+from dotenv import load_dotenv
 from fastapi import FastAPI, Request, Form, UploadFile, File, HTTPException
+
+load_dotenv()
 from fastapi.responses import HTMLResponse, JSONResponse, Response
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
@@ -128,7 +131,7 @@ def process_with_philter(text: str, freq_table: bool = False) -> dict:
 @app.get("/", response_class=HTMLResponse)
 async def home(request: Request):
     """Render the main page."""
-    return templates.TemplateResponse("index.html", {"request": request})
+    return templates.TemplateResponse(request, "index.html")
 
 
 @app.post("/process", response_class=HTMLResponse)
@@ -146,8 +149,8 @@ async def process_text(
         # Validate input
         if not text and not file:
             return templates.TemplateResponse(
-                "results.html",
-                {"request": request, "error": "Please provide text or upload a file"}
+                request, "results.html",
+                context={"error": "Please provide text or upload a file"}
             )
 
         # Get text content
@@ -156,15 +159,15 @@ async def process_text(
             content = await file.read()
             if len(content) > MAX_FILE_SIZE:
                 return templates.TemplateResponse(
-                    "results.html",
-                    {"request": request, "error": f"File size exceeds {MAX_FILE_SIZE / 1024 / 1024}MB limit"}
+                    request, "results.html",
+                    context={"error": f"File size exceeds {MAX_FILE_SIZE / 1024 / 1024}MB limit"}
                 )
             text = content.decode('utf-8')
 
         if not text or not text.strip():
             return templates.TemplateResponse(
-                "results.html",
-                {"request": request, "error": "Text content is empty"}
+                request, "results.html",
+                context={"error": "Text content is empty"}
             )
 
         # Process with Philter
@@ -175,9 +178,8 @@ async def process_text(
         results_store[session_id] = results
 
         return templates.TemplateResponse(
-            "results.html",
-            {
-                "request": request,
+            request, "results.html",
+            context={
                 "filtered_text": results["filtered_text"],
                 "session_id": session_id,
                 "has_freq_table": freq_table and results.get("freq_table_data")
@@ -186,8 +188,8 @@ async def process_text(
 
     except Exception as e:
         return templates.TemplateResponse(
-            "results.html",
-            {"request": request, "error": f"Processing error: {str(e)}"}
+            request, "results.html",
+            context={"error": f"Processing error: {str(e)}"}
         )
 
 
@@ -277,4 +279,5 @@ async def download_result(format: str, session_id: str):
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    port = int(os.environ.get("APP_PORT", 8001))
+    uvicorn.run(app, host="0.0.0.0", port=port)
