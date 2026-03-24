@@ -15,13 +15,13 @@
     <div class="download-section">
         <h3>Download Results:</h3>
         <div class="download-buttons">
-            <a href="/download/txt/{{ session_id }}" class="btn btn-download" download>
+            <a href="{{ request.scope['root_path'] }}/download/txt/{{ session_id }}" class="btn btn-download" download>
                 Download as TXT
             </a>
-            <a href="/download/xml/{{ session_id }}" class="btn btn-download" download>
+            <a href="{{ request.scope['root_path'] }}/download/xml/{{ session_id }}" class="btn btn-download" download>
                 Download as XML
             </a>
-            <a href="/download/json/{{ session_id }}" class="btn btn-download" download>
+            <a href="{{ request.scope['root_path'] }}/download/json/{{ session_id }}" class="btn btn-download" download>
                 Download as JSON
             </a>
         </div>

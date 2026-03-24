@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Philter - PHI Filter for Clinical Notes</title>
-    <link rel="icon" type="image/png" href="/static/Philter_logo.png">
+    <link rel="icon" type="image/png" href="{{ request.scope['root_path'] }}/static/Philter_logo.png">
     <script src="https://unpkg.com/htmx.org@1.9.10"></script>
-    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="{{ request.scope['root_path'] }}/static/style.css">
 </head>
 <body>
     <div class="container">
         <header>
-            <img src="/static/Philter_logo.png" alt="Philter Logo">
+            <img src="{{ request.scope['root_path'] }}/static/Philter_logo.png" alt="Philter Logo">
             <div>
                 <h1>Philter</h1>
                 <p class="subtitle">PHI Filter for Clinical Notes</p>
@@ -23,7 +23,7 @@
                 <h2>Input Clinical Text</h2>
 
                 <form
-                    hx-post="/process"
+                    hx-post="{{ request.scope['root_path'] }}/process"
                     hx-target="#results"
                     hx-indicator="#loading"
                     enctype="multipart/form-data"

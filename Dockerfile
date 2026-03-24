@@ -29,4 +29,4 @@ RUN source .env
 EXPOSE ${APP_PORT:-8001}
 
 # Run the application
-CMD uv run uvicorn main:app --host 0.0.0.0 --port ${APP_PORT:-8001}
+CMD uv run uvicorn main:app --host 0.0.0.0 --port ${APP_PORT:-8001} --root-path ${ROOT_PATH:-}
