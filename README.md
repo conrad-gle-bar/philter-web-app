@@ -2,15 +2,6 @@
 
 Web interface for the Philter PHI (Protected Health Information) filtering tool for clinical notes.
 
-## Features
-
-- **Web Interface**: Simple HTMX-powered form for uploading text files or pasting clinical notes
-- **API Endpoint**: Direct curl-accessible API for programmatic access
-- **Multiple Output Formats**: Download filtered results as TXT, XML, or JSON
-- **Frequency Table**: Optional generation of PHI frequency statistics
-- **No Storage**: All processing done in-memory, results not persisted
-- **Important Disclaimer**: Outputs PHI-reduced notes, not PHI-free notes
-
 ## Quick Start with Docker (Recommended)
 
 The easiest way to run Philter Web App is using Docker:
@@ -18,7 +9,7 @@ The easiest way to run Philter Web App is using Docker:
 ### Prerequisites
 - Docker
 - Docker Compose
-
+s
 ### Running the Application
 
 1. **Build and start the container:**
@@ -27,8 +18,8 @@ docker-compose up -d
 ```
 
 2. **Access the application:**
-   - Web interface: http://localhost:8000
-   - API endpoint: http://localhost:8000/api/philter
+   - Web interface: http://localhost:8001
+   - API endpoint: http://localhost:8001/api/philter
 
 3. **View logs:**
 ```bash
@@ -78,13 +69,13 @@ source .venv39/bin/activate      # Linux/Mac
 python main.py
 ```
 
-The application will be available at: http://localhost:8000
+The application will be available at: http://localhost:8001
 
 ## Usage
 
 ### Web Interface
 
-1. Navigate to http://localhost:8000
+1. Navigate to http://localhost:8001
 2. Either:
    - Paste clinical text into the textarea, OR
    - Upload a text file (max 10MB)
@@ -97,7 +88,7 @@ The application will be available at: http://localhost:8000
 Process text directly:
 
 ```bash
-curl -X POST http://localhost:8000/api/philter \
+curl -X POST http://localhost:8001/api/philter \
   -F "text=Patient John Doe was seen on 01/01/2023" \
   -F "freq_table=false"
 ```
@@ -105,7 +96,7 @@ curl -X POST http://localhost:8000/api/philter \
 Process a file:
 
 ```bash
-curl -X POST http://localhost:8000/api/philter \
+curl -X POST http://localhost:8001/api/philter \
   -F "file=@clinical_note.txt" \
   -F "freq_table=true"
 ```
@@ -129,39 +120,6 @@ Settings:
 - **Output format**: Production mode (i2b2 XML with PHI tags)
 - **Config file**: `philter_config/philter_delta.json`
 
-## Deployment
-
-### Docker Deployment
-
-The application includes a multi-stage Dockerfile optimized for production:
-
-- Based on Python 3.9 slim image
-- Includes all required dependencies
-- Pre-downloads NLTK data
-- Health checks configured
-- Runs on port 8000
-
-### Environment Variables
-
-None required by default. All configuration is pre-set.
-
-## Project Structure
-
-```
-philter-web-app/
-├── Dockerfile              # Docker container definition
-├── docker-compose.yml      # Docker Compose configuration
-├── main.py                 # FastAPI application
-├── templates/
-│   ├── index.html         # Main page
-│   └── results.html       # Results partial
-├── static/
-│   └── style.css          # Styling
-├── philter_config/
-│   └── philter_delta.json # Philter configuration
-└── pyproject.toml         # Dependencies
-```
-
 ## Citation
 
 If you use this software for any publication, please cite:
@@ -170,4 +128,5 @@ Norgeot, B., Muenzen, K., Peterson, T.A. et al. Protected Health Information fil
 
 ## License
 
-See the philter-ucsf project for licensing information.
+All code other than philter-ucsf is under MIT license.
+See THIRD-PARTY-LICENSE the philter-ucsf project licensing information.

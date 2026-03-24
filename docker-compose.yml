@@ -4,6 +4,8 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: philter-web-app
+    env_file:
+      - .env
     ports:
-      - "8000:8000"
+      - "${APP_PORT:-8001}:${APP_PORT:-8001}"
     restart: unless-stopped
