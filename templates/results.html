@@ -1,0 +1,36 @@
+{% if error %}
+<div class="alert alert-error">
+    <h3>Error</h3>
+    <p>{{ error }}</p>
+</div>
+{% else %}
+<div class="results-container">
+    <h2>Filtered Results</h2>
+
+    <div class="result-content">
+        <h3>PHI-Filtered Text:</h3>
+        <pre class="filtered-text">{{ filtered_text }}</pre>
+    </div>
+
+    <div class="download-section">
+        <h3>Download Results:</h3>
+        <div class="download-buttons">
+            <a href="/download/txt/{{ session_id }}" class="btn btn-download" download>
+                Download as TXT
+            </a>
+            <a href="/download/xml/{{ session_id }}" class="btn btn-download" download>
+                Download as XML
+            </a>
+            <a href="/download/json/{{ session_id }}" class="btn btn-download" download>
+                Download as JSON
+            </a>
+        </div>
+    </div>
+
+    {% if has_freq_table %}
+    <div class="freq-table-notice">
+        <p>Frequency table data is included in the JSON download.</p>
+    </div>
+    {% endif %}
+</div>
+{% endif %}

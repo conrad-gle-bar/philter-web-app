@@ -1,0 +1,376 @@
+/* Catppuccin Latte Color Scheme */
+:root {
+    --ctp-base: #eff1f5;
+    --ctp-mantle: #e6e9ef;
+    --ctp-crust: #dce0e8;
+    --ctp-text: #4c4f69;
+    --ctp-subtext0: #6c6f85;
+    --ctp-subtext1: #5c5f77;
+    --ctp-surface0: #ccd0da;
+    --ctp-surface1: #bcc0cc;
+    --ctp-surface2: #acb0be;
+    --ctp-blue: #1e66f5;
+    --ctp-lavender: #7287fd;
+    --ctp-teal: #179299;
+    --ctp-green: #40a02b;
+    --ctp-yellow: #df8e1d;
+    --ctp-red: #d20f39;
+    --ctp-mauve: #8839ef;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.5;
+    color: var(--ctp-text);
+    background-color: var(--ctp-base);
+    font-size: 14px;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 15px;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    padding: 20px;
+    background: var(--ctp-blue);
+    color: var(--ctp-base);
+    border-radius: 5px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+header img {
+    height: 45px;
+    width: auto;
+}
+
+header > div {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+header h1 {
+    font-size: 1.8rem;
+    margin-bottom: 0;
+    line-height: 1.2;
+}
+
+header .subtitle {
+    font-size: 0.9rem;
+    opacity: 0.95;
+    line-height: 1.2;
+}
+
+main {
+    background: var(--ctp-mantle);
+    border-radius: 5px;
+    padding: 25px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    color: var(--ctp-blue);
+    margin-bottom: 15px;
+    font-size: 1.3rem;
+}
+
+h3 {
+    color: var(--ctp-subtext0);
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
+
+.input-section {
+    margin-bottom: 25px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+    color: var(--ctp-text);
+    font-size: 0.9rem;
+}
+
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid var(--ctp-surface1);
+    border-radius: 5px;
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+    resize: vertical;
+    transition: border-color 0.3s;
+    background: var(--ctp-base);
+    color: var(--ctp-text);
+}
+
+textarea:focus {
+    outline: none;
+    border-color: var(--ctp-blue);
+}
+
+.file-label {
+    display: block;
+    cursor: pointer;
+}
+
+.file-label span {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+    color: var(--ctp-text);
+    font-size: 0.9rem;
+}
+
+input[type="file"] {
+    width: 100%;
+    padding: 8px;
+    border: 2px dashed var(--ctp-surface1);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: border-color 0.3s;
+    background: var(--ctp-base);
+    color: var(--ctp-text);
+    font-size: 13px;
+}
+
+input[type="file"]:hover {
+    border-color: var(--ctp-blue);
+}
+
+.help-text {
+    font-size: 0.8rem;
+    color: var(--ctp-subtext0);
+    margin-top: 4px;
+}
+
+.checkbox-group label {
+    display: flex;
+    align-items: center;
+    font-weight: normal;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.checkbox-group input[type="checkbox"] {
+    width: auto;
+    margin-right: 6px;
+    cursor: pointer;
+}
+
+.btn {
+    padding: 8px 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-primary {
+    background: var(--ctp-blue);
+    color: var(--ctp-base);
+}
+
+.btn-primary:hover {
+    background: var(--ctp-lavender);
+    box-shadow: 0 2px 6px rgba(30, 102, 245, 0.3);
+}
+
+.btn-download {
+    background: var(--ctp-green);
+    color: var(--ctp-base);
+    margin-right: 8px;
+    margin-bottom: 8px;
+}
+
+.btn-download:hover {
+    background: var(--ctp-teal);
+    box-shadow: 0 2px 6px rgba(64, 160, 43, 0.3);
+}
+
+#loading {
+    display: none;
+    text-align: center;
+    padding: 15px;
+    margin-top: 15px;
+}
+
+#loading.htmx-request {
+    display: block;
+}
+
+.spinner {
+    border: 3px solid var(--ctp-surface0);
+    border-top: 3px solid var(--ctp-blue);
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 8px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.results-section {
+    margin-top: 25px;
+    padding-top: 25px;
+    border-top: 2px solid var(--ctp-surface0);
+}
+
+.results-container {
+    animation: fadeIn 0.4s;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.result-content {
+    background: var(--ctp-crust);
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.filtered-text {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+    line-height: 1.5;
+    background: var(--ctp-base);
+    padding: 15px;
+    border: 1px solid var(--ctp-surface1);
+    border-radius: 5px;
+    max-height: 400px;
+    overflow-y: auto;
+    color: var(--ctp-text);
+}
+
+.download-section {
+    margin-bottom: 20px;
+}
+
+.download-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.freq-table-notice {
+    background: var(--ctp-crust);
+    padding: 12px;
+    border-radius: 5px;
+    border-left: 4px solid var(--ctp-blue);
+    color: var(--ctp-text);
+    font-size: 0.9rem;
+}
+
+.alert {
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+.alert-error {
+    background: var(--ctp-crust);
+    border-left: 4px solid var(--ctp-red);
+    color: var(--ctp-red);
+}
+
+.alert h3 {
+    color: var(--ctp-red);
+    margin-bottom: 8px;
+}
+
+footer {
+    margin-top: 30px;
+    padding: 20px;
+    background: var(--ctp-mantle);
+    border-radius: 5px;
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--ctp-subtext0);
+    line-height: 1.6;
+}
+
+footer strong {
+    color: var(--ctp-text);
+}
+
+footer a {
+    color: var(--ctp-blue);
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+.disclaimer {
+    margin-top: 15px;
+    padding: 12px;
+    background: var(--ctp-yellow);
+    color: var(--ctp-crust);
+    border-radius: 5px;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+
+    header {
+        padding: 15px;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    header h1 {
+        font-size: 1.5rem;
+    }
+
+    header img {
+        height: 35px;
+    }
+
+    main {
+        padding: 15px;
+    }
+
+    .download-buttons {
+        flex-direction: column;
+    }
+
+    .btn-download {
+        margin-right: 0;
+    }
+}

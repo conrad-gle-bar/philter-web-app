@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Philter - PHI Filter for Clinical Notes</title>
+    <link rel="icon" type="image/png" href="/static/Philter_logo.png">
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <img src="/static/Philter_logo.png" alt="Philter Logo">
+            <div>
+                <h1>Philter</h1>
+                <p class="subtitle">PHI Filter for Clinical Notes</p>
+            </div>
+        </header>
+
+        <main>
+            <section class="input-section">
+                <h2>Input Clinical Text</h2>
+
+                <form
+                    hx-post="/process"
+                    hx-target="#results"
+                    hx-indicator="#loading"
+                    enctype="multipart/form-data"
+                >
+                    <div class="form-group">
+                        <label for="text">Enter Text:</label>
+                        <textarea
+                            id="text"
+                            name="text"
+                            rows="10"
+                            placeholder="Paste clinical text here..."
+                        ></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="file-label">
+                            <span>Or Upload File:</span>
+                            <input
+                                type="file"
+                                name="file"
+                                accept=".txt,.text"
+                                id="file-input"
+                            >
+                        </label>
+                        <p class="help-text">Maximum file size: 10MB</p>
+                    </div>
+
+                    <div class="form-group checkbox-group">
+                        <label>
+                            <input type="checkbox" name="freq_table" value="true">
+                            Generate frequency table
+                        </label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">
+                        Process Text
+                    </button>
+
+                    <div id="loading" class="htmx-indicator">
+                        <div class="spinner"></div>
+                        <p>Processing clinical text...</p>
+                    </div>
+                </form>
+            </section>
+
+            <section id="results" class="results-section">
+                <!-- Results will be loaded here via HTMX -->
+            </section>
+        </main>
+
+        <footer>
+            <div class="disclaimer">
+                ⚠️ Use this tool at your own discretion. It will output PHI-reduced notes. It will <em>not</em> output PHI-free notes.
+            </div>
+            <p>
+                <strong>Citation:</strong> Norgeot, B., Muenzen, K., Peterson, T.A. et al.
+                Protected Health Information filter (Philter): accurately and securely de-identifying
+                free-text clinical notes. npj Digit. Med. 3, 57 (2020).
+                <a href="https://doi.org/10.1038/s41746-020-0258-y" target="_blank" rel="noopener noreferrer">https://doi.org/10.1038/s41746-020-0258-y</a>
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // Clear textarea when file is selected
+        document.getElementById('file-input').addEventListener('change', function(e) {
+            if (e.target.files.length > 0) {
+                document.getElementById('text').value = '';
+            }
+        });
+
+        // Clear file input when text is entered
+        document.getElementById('text').addEventListener('input', function(e) {
+            if (e.target.value.trim()) {
+                document.getElementById('file-input').value = '';
+            }
+        });
+    </script>
+</body>
+</html>
