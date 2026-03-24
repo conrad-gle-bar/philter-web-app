@@ -6,6 +6,17 @@ services:
     container_name: philter-web-app
     env_file:
       - .env
-    ports:
-      - "${APP_PORT:-8001}:${APP_PORT:-8001}"
     restart: unless-stopped
+    networks:
+     - proxy
+    labels:
+     - "traefik.enable=true"
+     - "traefik.http.routers.philter.rule=Host(`${TRAEFIK_HOST}`) && PathPrefix(`${ROOT_PATH}`)"
+     - "traefik.http.routers.philter.entrypoints=http"
+     - "traefik.http.services.philter.loadbalancer.server.port=${APP_PORT}"
+     - "traefik.http.routers.philter.middlewares=philter-strip-api"
+     - "traefik.http.middlewares.philter-strip-api.stripprefix.prefixes=${ROOT_PATH}"
+
+networks:
+ proxy:
+   external: true
